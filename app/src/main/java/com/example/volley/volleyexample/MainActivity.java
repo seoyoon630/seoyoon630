@@ -12,7 +12,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -89,6 +91,19 @@ public class MainActivity extends AppCompatActivity {
         jsonObject.addProperty("gender", "F");
         String json2 = gson2.toJson(jsonObject);
         mTextView3.setText(json);
+
+
+        final TextView nameText = (TextView) findViewById(R.id.name);
+        final TextView ageText = (TextView) findViewById(R.id.age);
+        final TextView genderText = (TextView) findViewById(R.id.gender);
+        JsonParser parser = new JsonParser();
+        JsonElement element = parser.parse(json2);
+        String name = element.getAsJsonObject().get("name").getAsString();
+        nameText.setText(name);
+        String age = element.getAsJsonObject().get("age").getAsString();
+        ageText.setText(age);
+        String gender = element.getAsJsonObject().get("gender").getAsString();
+        genderText.setText(gender);
     }
 
    @Override
